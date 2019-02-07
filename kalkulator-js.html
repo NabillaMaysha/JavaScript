@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Web</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style media="screen">
+      .screen{
+        height:60px;
+        font-size:30px;
+        margin-bottom:10px;
+      }
+    </style>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript">
+      var temp = 0; //untuk menyimpan angka sementara
+      var opr = ''; //untuk menyimpan operasi sementara
+      //fungsi untuk menampilkan angka ke display
+      function ShowNumber(number){
+        var screen = document.getElementById('screen').value;
+        //jika tampilan display masih kosong
+        //maka angka langsung ditambahkan
+        //Number(..)digunakan untuk konversi ke tipe numeric
+        if(Number(screen) == 0){
+          document.getElementById('screen').value = number;
+          //jika display sudah ada angkanya
+          //maka angka digabungkan
+        }else{
+          document.getElementById('screen').value += number;
+        }
+      }
+      function Operation(operator){
+        //mengambil nilai dari display
+        var screen = document.getElementById('screen').value;
+        //jika nilai temp masing kosong, maka
+        //nilai temp akan diisi dengan angka yang ada di display
+        if(temp == 0){
+          temp = Number(screen);
+          //jika nilai temp sudah ada,
+          //maka nilai temp akan diolah sesuai dengan operasi yang ada
+        }else{
+          if(opr == '+'){
+            temp += Number(screen);
+          }
+          else if(opr == '-'){
+            temp -= Number(screen);
+          }
+          else if(opr == '*'){
+            temp *= Number(screen);
+          }
+          else if(opr == '/'){
+            if(Number(screen) == 0){
+              alert('Cannot devide by zero');
+            }else{
+              temp /= Number(screen);
+            }
+          }
+        }
+        opr = operator;
+        //ketika tombol operator diklik maka tampilan display akan kososng
+        document.getElementById('screen').value = "";
+      }
+      function ShowResult(){
+        //fungsi untuk tombol sama dengan (=)
+        //ketika fungsi ini dipanggil maka akan display menampilkan
+        //hasil pehitungan
+        var screen = document.getElementById('screen').value;
+        if(opr == '+'){
+          temp += Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if(opr == '-'){
+          temp -= Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if (opr == '*'){
+          temp *= Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if(opr == '/'){
+          if(Number(screen) == 0){
+            alert('Cannot devide by zero');
+          }else{
+            temp /= Number(screen);
+            document.getElementById('screen').value = temp;
+          }
+        }
+      }
+      function Reset(){
+        //fungsi untuk mereset calculator
+        temp = 0;
+        document.getElementById('screen').value = "";
+      }
+      function ShowResult(){
+        //fungsi untuk tombol sama dengan (=)
+        //ketika fungsi ini dipanggil maka display akan menampilkan
+        //hasil perhitungan
+        var screen = document.getElementById('screen').value;
+        if(opr == '+'){
+          temp += Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if(opr == '-'){
+          temp -= Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if(opr == '*'){
+          temp *= Number(screen);
+          document.getElementById('screen').value = temp;
+        }
+        else if(opr == '/'){
+          if(Number(screen) == 0){
+            alert('Cannot devide by zero');
+          }else{
+            temp /= Number(screen);
+            document.getElementById('screen').value = temp;
+          }
+        }
+      }
+      function Reset(){ //fungsi untuk mereset calculator
+        temp = 0;
+        document.getElementById('screen').value = "";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-5">
+        <div class="card col-sm-12">
+          <div class="card-header bg-primary text-white">
+            <h5>Kalkulator Sederhana</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <input type="text" id="screen" class="form-control screen" readonly>
+              </div>
+
+              <div class="col-sm-3">
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('7');"><h4>7</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('4');"><h4>4</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('1');"><h4>1</h4></button>
+                <button type="button" class=" btn btn-block btn-warning" onclick="Reset();"><h4>C</h4></button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('8');"><h4>8</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('5');"><h4>5</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('2');"><h4>2</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('0');"><h4>0</h4></button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('9');"><h4>9</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('6');"><h4>6</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowNumber('3');"><h4>3</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="ShowResult();"><h4>=</h4></button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class=" btn btn-block btn-dark" onclick="Operation('+');"><h4>+</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="Operation('-');"><h4>-</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="Operation('*');"><h4>*</h4></button>
+                <button type="button" class=" btn btn-block btn-dark" onclick="Operation('/');"><h4>/</h4></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+</html>
